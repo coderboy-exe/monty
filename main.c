@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	toks = strtok(buf, "\n\t :;");
+	toks = strtok(buf, "\n\t\a\r :;");
 
 	while (toks)
 	{
@@ -53,14 +53,14 @@ int main(int argc, char *argv[])
 		{
 			push(&h, line, toks);
 			is_push = 0;
-			toks = strtok(NULL, "\n\t\a\r :;");
+			toks = strtok(NULL, "\n\t\a\r ;:");
 			line++;
 			continue;
 		}
 		else if (strcmp(toks, "push") == 0)
 		{
 			is_push = 1;
-			toks = strtok(NULL, "\n\t\a\r :;");
+			toks = strtok(NULL, "\n\t\a\r ;:");
 			continue;
 		}
 		else
@@ -77,11 +77,10 @@ int main(int argc, char *argv[])
 			}
 		}
 		line++;
-		toks = strtok(NULL, "\n\t\a\r :;");
+		toks = strtok(NULL, "\n\t\a\r ;:");
 	}
 
-	free_dlinked_list(&h);
-	free(buf);
+	free_dlinked_list(&h); free(buf);
 
 	close(fd);
 	return (0);
