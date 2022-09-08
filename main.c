@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 			}
 			else
 			{
-				free_dlinked_list(h);
+				free_dlinked_list(&h);
 				printf("L%d: unknown instruction %s\n", line, toks);
 				exit(EXIT_FAILURE);
 			}
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 		toks = strtok(NULL, "\n\t\a\r :;");
 	}
 
-	free_dlinked_list(h);
+	free_dlinked_list(&h);
 	free(buf);
 
 	close(fd);
