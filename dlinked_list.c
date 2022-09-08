@@ -44,15 +44,12 @@ int add_new_node(stack_t **h, int n)
  * free_dlinked_list - frees a doubly linked list with int data
  * @h: head of d_linked list
  */
-void free_dlinked_list(stack_t **h)
+void free_dlinked_list(stack_t *h)
 {
-	if (!h)
-		return;
-
-	while (*h && (*h)->next)
+	while (h)
 	{
-		*h = (*h)->next;
-		free((*h)->prev);
+		h = h->next;
+		free(h);
+		h = NULL;
 	}
-	free(*h);
 }
