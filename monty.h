@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include <ctype.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -40,11 +41,12 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-
-void push(stack_t **h, unsigned int line_num, char *n);
+void (*get_opcode(char *tok1))(stack_t **stack, unsigned int line_num);
+void push(stack_t **h, unsigned int line_num, const char *n);
 void pall(stack_t **h, unsigned int line_num);
 
 
 int add_new_node(stack_t **h, int n);
+void free_dlinked_list(stack_t **h);
 
 #endif

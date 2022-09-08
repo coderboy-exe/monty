@@ -11,14 +11,74 @@
 
 int main(int argc, char *argv[])
 {
-	int fd;
+	int fd, is_push = 0;
+	char *buf, *toks;
+	unsigned int line = 1;
+	ssize_t n_read;
+	stack_t *h = NULL;
 
 	if (argc != 2)
 	{
-		fprintf(stderr, "usage: monty file\n");
+		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 	fd = open(argv[1], O_RDONLY);
+
+	if (fd == -1)
+	{
+		printf("Error: Can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
+	}
+
+	buf = malloc(sizeof(char) * 10000);
+	if (!buf)
+		return (0);
+
+	n_read = read(fd, buf, 10000);
+	if (n_read == -1)
+	{
+		free(buf);
+		close(fd);
+		exit(EXIT_FAILURE);
+	}
+
+	toks = strtok(buf, "\n\t :;");
+
+	while (toks)
+	{
+		if (is_push == 1)
+		{
+			push(&h, line, toks);
+			is_push = 0;
+			toks = strtok(NULL, "\n\t :;");
+			line++;
+			continue;
+		}
+		else if (strcmp(toks, "push") == 0)
+		{
+			is_push = 1;
+			toks = strtok(NULL, "\n\t :;");
+			continue;
+		}
+		else
+		{
+			if (get_opcode(toks) != 0)
+			{
+				get_opcode(toks)(&h, line);
+			}
+			else
+			{
+				free_dlinked_list(&h);
+				printf("L%d: unknown instruction %s\n", line, toks);
+				exit(EXIT_FAILURE);
+			}
+		}
+		line++;
+		toks = strtok(NULL, "\n\t :;");
+	}
+
+	free_dlinked_list(&h);
+	free(buf);
 
 	close(fd);
 	return (0);

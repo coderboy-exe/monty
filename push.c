@@ -7,7 +7,7 @@
  *
  * @Return: 0 if int, 1 otherwise
  */
-int check_int(char *n)
+int check_int(const char *n)
 {
 	int i = 0;
 
@@ -29,7 +29,7 @@ int check_int(char *n)
  * @n: item to be added to the stack (integer)
  */
 
-void push(stack_t **h, unsigned int line_num, char *n)
+void push(stack_t **h, unsigned int line_num, const char *n)
 {
 	if (check_int(n) == 1)
 	{
