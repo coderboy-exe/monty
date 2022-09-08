@@ -50,14 +50,14 @@ int main(int argc, char *argv[])
 		{
 			push(&h, line, toks);
 			is_push = 0;
-			toks = strtok(NULL, "\n\t :;");
+			toks = strtok(NULL, "\n\t\a\r :;");
 			line++;
 			continue;
 		}
 		else if (strcmp(toks, "push") == 0)
 		{
 			is_push = 1;
-			toks = strtok(NULL, "\n\t :;");
+			toks = strtok(NULL, "\n\t\a\r :;");
 			continue;
 		}
 		else
@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 			}
 		}
 		line++;
-		toks = strtok(NULL, "\n\t :;");
+		toks = strtok(NULL, "\n\t\a\r :;");
 	}
 
 	free_dlinked_list(&h);
