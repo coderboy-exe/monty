@@ -12,6 +12,7 @@ void (*get_opcode(char *tok1))(stack_t **stack, unsigned int line_num)
 {
 	instruction_t instruction_s[] = {
 		{"pall", pall},
+		{"pint", pint},
 		{NULL, NULL}
 	};
 

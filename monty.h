@@ -44,6 +44,7 @@ typedef struct instruction_s
 void (*get_opcode(char *tok1))(stack_t **stack, unsigned int line_num);
 void push(stack_t **h, unsigned int line_num, const char *n);
 void pall(stack_t **h, unsigned int line_num);
+void pint(stack_t **h, unsigned int line_num);
 
 
 int add_new_node(stack_t **h, int n);
