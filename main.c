@@ -32,7 +32,10 @@ int main(int argc, char *argv[])
 
 	buf = malloc(sizeof(char) * 10000);
 	if (!buf)
-		return (0);
+	{
+		printf("Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
 
 	n_read = read(fd, buf, 10000);
 	if (n_read == -1)
