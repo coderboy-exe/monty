@@ -26,14 +26,14 @@ int main(int argc, char *argv[])
 
 	if (fd == -1)
 	{
-		printf("Error: Can't open file %s\n", argv[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 
 	buf = malloc(sizeof(char) * 10000);
 	if (!buf)
 	{
-		printf("Error: malloc failed\n");
+		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 
