@@ -1,24 +1,24 @@
 #include "monty.h"
 
 /**
- * pall - print all items in a stack
+ * f_pall - prints the stack
+ * @head: stack head
+ * @counter: no used
  *
- * @h: head of dlinked_list (bottom of stack)
- * @line_num: bytecode line number
- */
-void pall(stack_t **h, unsigned int line_num)
+ * Return: no return
+*/
+
+void f_pall(stack_t **head, unsigned int counter)
 {
-	stack_t *node = NULL;
-	(void)line_num;
+	stack_t *h;
+	(void)counter;
 
-	node = *h;
-
-	if (node == NULL)
+	h = *head;
+	if (h == NULL)
 		return;
-
-	while (node)
+	while (h)
 	{
-		printf("%d\n", node->n);
-		node = node->next;
+		printf("%d\n", h->n);
+		h = h->next;
 	}
 }
