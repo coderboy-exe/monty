@@ -37,10 +37,9 @@ void f_add(stack_t **head, unsigned int counter)
 
 
 /**
-  *f_sub- sustration
+  *f_sub - sustration
   *@head: stack head
   *@counter: line_number
-
   *Return: no return
  */
 
