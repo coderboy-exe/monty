@@ -1,46 +1,38 @@
 #include "monty.h"
 
 /**
- * check_int - checks if charcter is an integer
- *
- * @int: integer
- *
- * @Return: 0 if int, 1 otherwise
- */
-int check_int(const char *n)
+ * f_push - add node to the stack
+ * @head: stack head
+ * @counter: line_number
+ * Return: no return
+*/
+void f_push(stack_t **head, unsigned int counter)
 {
-	int i = 0;
+	int n, j = 0, flag = 0;
 
-	if (*n == '-')
-		i = 1;
-	for (; *(n+i) != '\0'; i++)
+	if (bus.arg)
 	{
-		if (isdigit(*(n+i)) == 0)
-			return (1);
-	}
-	return (0);
-}
-
-/**
- * push - pushes a new item at the top of the stack
- *
- * @h: head node of the d-linked list (bottom item in the stack)
- * @line_num: bytecode line number
- * @n: item to be added to the stack (integer)
- */
-
-void push(stack_t **h, unsigned int line_num, const char *n)
-{
-	if (check_int(n) == 1)
-	{
-		printf("L%u: usage: push integer\n", line_num);
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		if (add_new_node(h, atoi(n)) == 1)
+		if (bus.arg[0] == '-')
+			j++;
+		for (; bus.arg[j] != '\0'; j++)
 		{
-			exit(EXIT_FAILURE);
-		}
-	}
+			if (bus.arg[j] > 57 || bus.arg[j] < 48)
+				flag = 1; }
+		if (flag == 1)
+		{ fprintf(stderr, "L%d: usage: push integer\n", counter);
+			fclose(bus.file);
+			free(bus.content);
+			free_stack(*head);
+			exit(EXIT_FAILURE); }}
+	else
+	{ fprintf(stderr, "L%d: usage: push integer\n", counter);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE); }
+	n = atoi(bus.arg);
+	if (bus.lifi == 0)
+		addnode(head, n);
+	else
+		addqueue(head, n);
 }
