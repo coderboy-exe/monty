@@ -1,58 +1,47 @@
 #include "monty.h"
 
 /**
- * add_new_node - add new node to dlinked_list (top of stack)
+ * addnode - add node to the head stack
+ * @head: head of the stack
+ * @n: new_value
  *
- * @h: pointer to head node
- * @n: node data
- *
- * Return: 0 on success, -1 otherwise
- */
-int add_new_node(stack_t **h, int n)
+ * Return: no return
+*/
+
+
+void addnode(stack_t **head, int n)
 {
-	stack_t *node;
 
-	if (!h)
-		return (-1);
+	stack_t *new_node, *aux;
 
-	node = malloc(sizeof(stack_t));
-
-	if (!node)
-	{
-		printf("Error: malloc failed");
-		return (-1);
-	}
-	node->n = n;
-
-	if (*h == NULL)
-	{
-		*h = node;
-		node->next = NULL;
-		node->prev = NULL;
-	}
-	else
-	{
-		node->next = *h;
-		(*h)->prev = node;
-		*h = node;
-	}
-
-	return (0);
+	aux = *head;
+	new_node = malloc(sizeof(stack_t));
+	if (new_node == NULL)
+	{ printf("Error\n");
+		exit(0); }
+	if (aux)
+		aux->prev = new_node;
+	new_node->n = n;
+	new_node->next = *head;
+	new_node->prev = NULL;
+	*head = new_node;
 }
 
-/**
- * free_dlinked_list - frees a doubly linked list with int data
- * @h: head of d_linked list
- */
-void free_dlinked_list(stack_t **h)
-{
-	if (!h)
-		return;
 
-	while (*h && (*h)->next)
+/**
+* free_stack - frees a doubly linked list
+* @head: head of the stack
+*/
+
+void free_stack(stack_t *head)
+{
+	stack_t *aux;
+
+	aux = head;
+	while (head)
 	{
-		*h = (*h)->next;
-		free((*h)->prev);
+		aux = head->next;
+		free(head);
+		head = aux;
 	}
-	free(*h);
 }
